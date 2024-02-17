@@ -1,0 +1,423 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8E9DE7E12B80D11C00E73E8C /* PrayerTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE7E02B80D11C00E73E8C /* PrayerTrackerApp.swift */; };
+		8E9DE7E32B80D11C00E73E8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE7E22B80D11C00E73E8C /* ContentView.swift */; };
+		8E9DE7E52B80D11D00E73E8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E9DE7E42B80D11D00E73E8C /* Assets.xcassets */; };
+		8E9DE7E82B80D11D00E73E8C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E9DE7E72B80D11D00E73E8C /* Preview Assets.xcassets */; };
+		8E9DE8062B80D1BB00E73E8C /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE8052B80D1BB00E73E8C /* ButtonView.swift */; };
+		8E9DE8082B80D1E200E73E8C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE8072B80D1E200E73E8C /* LoadingView.swift */; };
+		8E9DE80A2B80D1F900E73E8C /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE8092B80D1F900E73E8C /* PersonView.swift */; };
+		8E9DE80C2B80D23700E73E8C /* SettingsTextSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE80B2B80D23700E73E8C /* SettingsTextSectionView.swift */; };
+		8E9DE80F2B80D25A00E73E8C /* SublineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE80E2B80D25A00E73E8C /* SublineModel.swift */; };
+		8E9DE8112B80D28600E73E8C /* PrayerTimesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE8102B80D28600E73E8C /* PrayerTimesModel.swift */; };
+		8E9DE8142B80D2A700E73E8C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE8132B80D2A700E73E8C /* Constants.swift */; };
+		8E9DE8162B80D2BC00E73E8C /* PrayersDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE8152B80D2BC00E73E8C /* PrayersDataManager.swift */; };
+		8E9DE8192B80D2ED00E73E8C /* HeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE8182B80D2ED00E73E8C /* HeaderViewModel.swift */; };
+		8E9DE81B2B80D30E00E73E8C /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE81A2B80D30E00E73E8C /* HeaderView.swift */; };
+		8E9DE81D2B80D32500E73E8C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE81C2B80D32500E73E8C /* SettingsView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8E9DE7DD2B80D11C00E73E8C /* PrayerTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrayerTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E9DE7E02B80D11C00E73E8C /* PrayerTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerTrackerApp.swift; sourceTree = "<group>"; };
+		8E9DE7E22B80D11C00E73E8C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8E9DE7E42B80D11D00E73E8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8E9DE7E72B80D11D00E73E8C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8E9DE8052B80D1BB00E73E8C /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		8E9DE8072B80D1E200E73E8C /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		8E9DE8092B80D1F900E73E8C /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
+		8E9DE80B2B80D23700E73E8C /* SettingsTextSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTextSectionView.swift; sourceTree = "<group>"; };
+		8E9DE80E2B80D25A00E73E8C /* SublineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SublineModel.swift; sourceTree = "<group>"; };
+		8E9DE8102B80D28600E73E8C /* PrayerTimesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerTimesModel.swift; sourceTree = "<group>"; };
+		8E9DE8132B80D2A700E73E8C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8E9DE8152B80D2BC00E73E8C /* PrayersDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersDataManager.swift; sourceTree = "<group>"; };
+		8E9DE8182B80D2ED00E73E8C /* HeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewModel.swift; sourceTree = "<group>"; };
+		8E9DE81A2B80D30E00E73E8C /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		8E9DE81C2B80D32500E73E8C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8E9DE7DA2B80D11C00E73E8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8E9DE7D42B80D11C00E73E8C = {
+			isa = PBXGroup;
+			children = (
+				8E9DE7DF2B80D11C00E73E8C /* PrayerTracker */,
+				8E9DE7DE2B80D11C00E73E8C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8E9DE7DE2B80D11C00E73E8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8E9DE7DD2B80D11C00E73E8C /* PrayerTracker.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8E9DE7DF2B80D11C00E73E8C /* PrayerTracker */ = {
+			isa = PBXGroup;
+			children = (
+				8E9DE7E02B80D11C00E73E8C /* PrayerTrackerApp.swift */,
+				8E9DE7E22B80D11C00E73E8C /* ContentView.swift */,
+				8E9DE8122B80D29900E73E8C /* Utility */,
+				8E9DE80D2B80D24000E73E8C /* Models */,
+				8E9DE8042B80D1A100E73E8C /* Views */,
+				8E9DE8172B80D2C600E73E8C /* ViewModels */,
+				8E9DE7E42B80D11D00E73E8C /* Assets.xcassets */,
+				8E9DE7E62B80D11D00E73E8C /* Preview Content */,
+			);
+			path = PrayerTracker;
+			sourceTree = "<group>";
+		};
+		8E9DE7E62B80D11D00E73E8C /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				8E9DE7E72B80D11D00E73E8C /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8E9DE8042B80D1A100E73E8C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8E9DE8072B80D1E200E73E8C /* LoadingView.swift */,
+				8E9DE80B2B80D23700E73E8C /* SettingsTextSectionView.swift */,
+				8E9DE81C2B80D32500E73E8C /* SettingsView.swift */,
+				8E9DE8052B80D1BB00E73E8C /* ButtonView.swift */,
+				8E9DE8092B80D1F900E73E8C /* PersonView.swift */,
+				8E9DE81A2B80D30E00E73E8C /* HeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8E9DE80D2B80D24000E73E8C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8E9DE80E2B80D25A00E73E8C /* SublineModel.swift */,
+				8E9DE8102B80D28600E73E8C /* PrayerTimesModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8E9DE8122B80D29900E73E8C /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				8E9DE8132B80D2A700E73E8C /* Constants.swift */,
+				8E9DE8152B80D2BC00E73E8C /* PrayersDataManager.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		8E9DE8172B80D2C600E73E8C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8E9DE8182B80D2ED00E73E8C /* HeaderViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8E9DE7DC2B80D11C00E73E8C /* PrayerTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E9DE7EB2B80D11D00E73E8C /* Build configuration list for PBXNativeTarget "PrayerTracker" */;
+			buildPhases = (
+				8E9DE7D92B80D11C00E73E8C /* Sources */,
+				8E9DE7DA2B80D11C00E73E8C /* Frameworks */,
+				8E9DE7DB2B80D11C00E73E8C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PrayerTracker;
+			productName = PrayerTracker;
+			productReference = 8E9DE7DD2B80D11C00E73E8C /* PrayerTracker.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8E9DE7D52B80D11C00E73E8C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					8E9DE7DC2B80D11C00E73E8C = {
+						CreatedOnToolsVersion = 15.2;
+					};
+				};
+			};
+			buildConfigurationList = 8E9DE7D82B80D11C00E73E8C /* Build configuration list for PBXProject "PrayerTracker" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8E9DE7D42B80D11C00E73E8C;
+			productRefGroup = 8E9DE7DE2B80D11C00E73E8C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8E9DE7DC2B80D11C00E73E8C /* PrayerTracker */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8E9DE7DB2B80D11C00E73E8C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E9DE7E82B80D11D00E73E8C /* Preview Assets.xcassets in Resources */,
+				8E9DE7E52B80D11D00E73E8C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8E9DE7D92B80D11C00E73E8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E9DE80F2B80D25A00E73E8C /* SublineModel.swift in Sources */,
+				8E9DE80A2B80D1F900E73E8C /* PersonView.swift in Sources */,
+				8E9DE8162B80D2BC00E73E8C /* PrayersDataManager.swift in Sources */,
+				8E9DE7E32B80D11C00E73E8C /* ContentView.swift in Sources */,
+				8E9DE80C2B80D23700E73E8C /* SettingsTextSectionView.swift in Sources */,
+				8E9DE8082B80D1E200E73E8C /* LoadingView.swift in Sources */,
+				8E9DE7E12B80D11C00E73E8C /* PrayerTrackerApp.swift in Sources */,
+				8E9DE81B2B80D30E00E73E8C /* HeaderView.swift in Sources */,
+				8E9DE8062B80D1BB00E73E8C /* ButtonView.swift in Sources */,
+				8E9DE8112B80D28600E73E8C /* PrayerTimesModel.swift in Sources */,
+				8E9DE8142B80D2A700E73E8C /* Constants.swift in Sources */,
+				8E9DE8192B80D2ED00E73E8C /* HeaderViewModel.swift in Sources */,
+				8E9DE81D2B80D32500E73E8C /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8E9DE7E92B80D11D00E73E8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8E9DE7EA2B80D11D00E73E8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8E9DE7EC2B80D11D00E73E8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PrayerTracker/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dany.jamous.PrayerTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8E9DE7ED2B80D11D00E73E8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PrayerTracker/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dany.jamous.PrayerTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8E9DE7D82B80D11C00E73E8C /* Build configuration list for PBXProject "PrayerTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E9DE7E92B80D11D00E73E8C /* Debug */,
+				8E9DE7EA2B80D11D00E73E8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8E9DE7EB2B80D11D00E73E8C /* Build configuration list for PBXNativeTarget "PrayerTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E9DE7EC2B80D11D00E73E8C /* Debug */,
+				8E9DE7ED2B80D11D00E73E8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8E9DE7D52B80D11C00E73E8C /* Project object */;
+}
