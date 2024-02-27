@@ -12,7 +12,7 @@ struct ContentView: View {
     
     // MARK: - PROPERTIES
     
-    @State var showPrayerSettings: Bool = false
+    @State var showSettings: Bool = false
     
     // MARK: - BODY
     var body: some View {

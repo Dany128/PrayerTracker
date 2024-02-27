@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E5BFF6E2B8BCEB7006F4451 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BFF6D2B8BCEB7006F4451 /* SettingsViewModel.swift */; };
 		8E9DE7E12B80D11C00E73E8C /* PrayerTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE7E02B80D11C00E73E8C /* PrayerTrackerApp.swift */; };
 		8E9DE7E32B80D11C00E73E8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE7E22B80D11C00E73E8C /* ContentView.swift */; };
 		8E9DE7E52B80D11D00E73E8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E9DE7E42B80D11D00E73E8C /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E5BFF6D2B8BCEB7006F4451 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		8E9DE7DD2B80D11C00E73E8C /* PrayerTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrayerTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E9DE7E02B80D11C00E73E8C /* PrayerTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerTrackerApp.swift; sourceTree = "<group>"; };
 		8E9DE7E22B80D11C00E73E8C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,12 +98,12 @@
 		8E9DE8042B80D1A100E73E8C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8E9DE8072B80D1E200E73E8C /* LoadingView.swift */,
-				8E9DE80B2B80D23700E73E8C /* SettingsTextSectionView.swift */,
-				8E9DE81C2B80D32500E73E8C /* SettingsView.swift */,
-				8E9DE8052B80D1BB00E73E8C /* ButtonView.swift */,
-				8E9DE8092B80D1F900E73E8C /* PersonView.swift */,
 				8E9DE81A2B80D30E00E73E8C /* HeaderView.swift */,
+				8E9DE8092B80D1F900E73E8C /* PersonView.swift */,
+				8E9DE81C2B80D32500E73E8C /* SettingsView.swift */,
+				8E9DE80B2B80D23700E73E8C /* SettingsTextSectionView.swift */,
+				8E9DE8072B80D1E200E73E8C /* LoadingView.swift */,
+				8E9DE8052B80D1BB00E73E8C /* ButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				8E9DE8182B80D2ED00E73E8C /* HeaderViewModel.swift */,
+				8E5BFF6D2B8BCEB7006F4451 /* SettingsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				8E9DE8142B80D2A700E73E8C /* Constants.swift in Sources */,
 				8E9DE8192B80D2ED00E73E8C /* HeaderViewModel.swift in Sources */,
 				8E9DE81D2B80D32500E73E8C /* SettingsView.swift in Sources */,
+				8E5BFF6E2B8BCEB7006F4451 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

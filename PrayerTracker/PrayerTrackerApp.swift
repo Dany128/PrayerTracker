@@ -11,7 +11,7 @@ import SwiftUI
 struct PrayerTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SettingsView(showSettings: .constant(true))
         }
     }
 }

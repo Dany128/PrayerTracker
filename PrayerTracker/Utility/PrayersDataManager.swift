@@ -17,22 +17,24 @@ class PrayersDataManager {
     
     func downloadPrayerTimes(with latitude: Double, _ longitude: Double, _ method: Int) async throws -> [String : String] {
         
-        guard let url = URL(string: "https://api.aladhan.com/v1/timings/\(dateFormatter.string(from: Date()))?latitude=\(latitude)&longitude=\(longitude)&method=\(method)") else {
-            print("url error")
-            throw Constants.Errors.APIError.invalidURL
-        }
+        let urlString = "https://api.aladhan.com/v1/timings/\(dateFormatter.string(from: Date()))?latitude=\(latitude)&longitude=\(longitude)&method=\(method)"
         
+        guard let url = URL(string: urlString) else {
+            throw Constants.Errors.API.invalidURL(urlString)
+        }
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
-            guard let response = response as? HTTPURLResponse, response.statusCode >= 200 && response.statusCode < 300 else {
-                print("invalid response")
-                throw Constants.Errors.APIError.invalidResponse
+            if let httpResponse = response as? HTTPURLResponse {
+                guard httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 else {
+                    throw Constants.Errors.API.invalidResponse(statusCode: httpResponse.statusCode)
+                }
+                let prayerTimesModel = try JSONDecoder().decode(PrayerTimesModel.self, from: data)
+                return prayerTimesModel.data.timings
+            } else {
+                throw Constants.Errors.API.invalidData
             }
-            let prayerTimesModel = try JSONDecoder().decode(PrayerTimesModel.self, from: data)
-            return prayerTimesModel.data.timings
         } catch {
-            print("Couldn't decode data")
-            throw Constants.Errors.APIError.invalidData
+            throw error
         }
     }
     
@@ -47,8 +49,7 @@ class PrayersDataManager {
             let midnight = timings["Midnight"] {
             return [fajr, sunrise, dhuhr, asr, maghrib, isha, midnight]
         } else {
-            print("couldn't generatePrayerTimes")
-            throw Constants.Errors.APIError.invalidData
+            throw Constants.Errors.API.invalidData
         }
     }
 }
