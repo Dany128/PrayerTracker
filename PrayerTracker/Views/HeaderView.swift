@@ -10,6 +10,7 @@ import SwiftUI
 struct HeaderView: View {
     // MARK: - PROPERTIES
     @StateObject var headerViewModel: HeaderViewModel = HeaderViewModel()
+    @Binding var settingsHaveChanged: Bool
     
     // Progression Bar
     
@@ -39,21 +40,23 @@ struct HeaderView: View {
                 }
             } //: VSTACK
             .onReceive(headerViewModel.timer, perform: { _ in
-                headerViewModel.updateTimeRemaining()
+                headerViewModel.updateTimeRemaining(while: &settingsHaveChanged)
             })
         } //: GROUPBOX
+        .onAppear {
+            if !headerViewModel.showSettings {
+                headerViewModel.loadPrayerTimes()
+            }
+        }
         .backgroundStyle(Constants.background)
         .padding()
         .animation(.spring, value: headerViewModel.toggleIsVisible)
-        .task {
-            await headerViewModel.checkForTimingsUpdate()
-        }
     }
 }
 
 #Preview {
     ScrollView {
-        HeaderView()
+        HeaderView(settingsHaveChanged: .constant(false))
     }
 }
 

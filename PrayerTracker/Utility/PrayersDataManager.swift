@@ -15,7 +15,7 @@ class PrayersDataManager {
         return formatter
     }
     
-    func downloadPrayerTimes(with latitude: Double, _ longitude: Double, _ method: Int) async throws -> [String : String] {
+    func downloadPrayerTimes(latitude: Double, longitude: Double, method: Int) async throws -> [String : String] {
         
         let urlString = "https://api.aladhan.com/v1/timings/\(dateFormatter.string(from: Date()))?latitude=\(latitude)&longitude=\(longitude)&method=\(method)"
         
@@ -38,18 +38,15 @@ class PrayersDataManager {
         }
     }
     
-    func generatePrayerTimes(with timings: [String : String]) throws -> [String] {
-        if
-            let fajr = timings["Fajr"],
-            let sunrise = timings["Sunrise"],
-            let dhuhr = timings["Dhuhr"],
-            let asr = timings["Asr"],
-            let maghrib = timings["Maghrib"],
-            let isha = timings["Isha"],
-            let midnight = timings["Midnight"] {
-            return [fajr, sunrise, dhuhr, asr, maghrib, isha, midnight]
+    func savePrayerTimesToUD(with prayerTimes: [String : String]) {
+        UserDefaults.standard.set(prayerTimes, forKey: Constants.prayerTimesKey)
+    }
+    
+    func loadPrayerTimesFromUD() -> [String : String]? {
+        if let prayerTimes = UserDefaults.standard.object(forKey: Constants.prayerTimesKey) as? [String : String] {
+            return prayerTimes
         } else {
-            throw Constants.Errors.API.invalidData
+            return nil
         }
     }
 }

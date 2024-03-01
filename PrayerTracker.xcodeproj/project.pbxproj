@@ -23,6 +23,7 @@
 		8E9DE8192B80D2ED00E73E8C /* HeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE8182B80D2ED00E73E8C /* HeaderViewModel.swift */; };
 		8E9DE81B2B80D30E00E73E8C /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE81A2B80D30E00E73E8C /* HeaderView.swift */; };
 		8E9DE81D2B80D32500E73E8C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE81C2B80D32500E73E8C /* SettingsView.swift */; };
+		8EA4D4B22B90C777001E79CA /* GeoNamesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA4D4B12B90C777001E79CA /* GeoNamesModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		8E9DE8182B80D2ED00E73E8C /* HeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewModel.swift; sourceTree = "<group>"; };
 		8E9DE81A2B80D30E00E73E8C /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		8E9DE81C2B80D32500E73E8C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8EA4D4B12B90C777001E79CA /* GeoNamesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoNamesModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 		8E9DE80D2B80D24000E73E8C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8EA4D4B12B90C777001E79CA /* GeoNamesModel.swift */,
 				8E9DE80E2B80D25A00E73E8C /* SublineModel.swift */,
 				8E9DE8102B80D28600E73E8C /* PrayerTimesModel.swift */,
 			);
@@ -206,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E9DE80F2B80D25A00E73E8C /* SublineModel.swift in Sources */,
+				8EA4D4B22B90C777001E79CA /* GeoNamesModel.swift in Sources */,
 				8E9DE80A2B80D1F900E73E8C /* PersonView.swift in Sources */,
 				8E9DE8162B80D2BC00E73E8C /* PrayersDataManager.swift in Sources */,
 				8E9DE7E32B80D11C00E73E8C /* ContentView.swift in Sources */,

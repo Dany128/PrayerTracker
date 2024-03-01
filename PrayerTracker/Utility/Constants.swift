@@ -10,6 +10,11 @@ import CoreLocation
 
 struct Constants {
     static let background = LinearGradient(colors: [.color5, .color6], startPoint: .bottom, endPoint: .top)
+    static let prayerTimesKey = "prayer_times"
+    static let periods: [String] = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha", "Midnight"]
+    static var periodsCount: Int {
+        periods.count
+    }
     
     struct Errors {
         enum API: Error {
@@ -54,6 +59,11 @@ struct Constants {
                     return ""
                 }
             }
+        }
+        
+        struct UnableToExitAlert {
+            static let title = "Incomplete Prayer Times"
+            static let message = "Please compute the prayer times or fill them manually"
         }
     }
 }

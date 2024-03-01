@@ -13,6 +13,7 @@ struct SettingsView: View {
     
     @StateObject var settingsViewModel = SettingsViewModel()
     @Binding var showSettings: Bool
+    @Binding var settingsHaveChanged: Bool
     
     var body: some View {
         ZStack {
@@ -51,7 +52,12 @@ struct SettingsView: View {
                 .navigationTitle("Prayer Times")
                 .toolbar {
                     Button {
-                        
+                        if settingsViewModel.prayerTimesAreComplete() {
+                            settingsHaveChanged = true
+                            showSettings = false
+                        } else {
+                            settingsViewModel.showUnableToExitAlert()
+                        }
                     } label: {
                         Image(systemName: "xmark")
                             .foregroundStyle(.black)
@@ -77,41 +83,13 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView(showSettings: .constant(true))
+    SettingsView(showSettings: .constant(true), settingsHaveChanged: .constant(false))
 }
 
 extension SettingsView {
     
     var wifiSections: some View {
         VStack(spacing: 20) {
-            
-            //MARK: - LOCATION
-            GroupBox {
-                SettingsTextSectionView(title: "Location", sublines: [
-                    SublineModel(
-                        title: "Country : \(settingsViewModel.country)",
-                        description: ""
-                    ),
-                    SublineModel(
-                        title: "City : \(settingsViewModel.city)",
-                        description: ""
-                    )], fixedSublinesSize: false
-                )
-                
-                LocationButton(.currentLocation) {
-                    settingsViewModel.requestOnceLocationPermission()
-                }
-                .clipShape(RoundedRectangle(cornerRadius: 15))
-                .foregroundStyle(.colorBrown)
-                .tint(.colorYellow)
-                .symbolVariant(.fill)
-                .padding(.top)
-                .padding(.horizontal, 20)
-                
-            } //: GROUPBOX
-            .backgroundStyle(.color5)
-            .padding(.horizontal)
-            .padding(.top, 30)
             
             //MARK: - METHOD
             GroupBox {
@@ -145,6 +123,34 @@ extension SettingsView {
             } //: GROUPBOX
             .backgroundStyle(.color5)
             .padding(.horizontal)
+            .padding(.top, 30)
+            
+            //MARK: - LOCATION
+            GroupBox {
+                SettingsTextSectionView(title: "Location", sublines: [
+                    SublineModel(
+                        title: "Country : \(settingsViewModel.country)",
+                        description: ""
+                    ),
+                    SublineModel(
+                        title: "City : \(settingsViewModel.city)",
+                        description: ""
+                    )], fixedSublinesSize: false
+                )
+                
+                LocationButton(.currentLocation) {
+                    settingsViewModel.requestOnceLocationPermission()
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .foregroundStyle(.colorBrown)
+                .tint(.colorYellow)
+                .symbolVariant(.fill)
+                .padding(.top)
+                .padding(.horizontal, 20)
+                
+            } //: GROUPBOX
+            .backgroundStyle(.color5)
+            .padding(.horizontal)
         }
     }
     
@@ -152,7 +158,7 @@ extension SettingsView {
         GroupBox {
             HStack {
                 Picker("Period", selection: $settingsViewModel.period) {
-                    ForEach(settingsViewModel.periods, id: \.self) { period in
+                    ForEach(Constants.periods, id: \.self) { period in
                         Text(period).tag(period)
                     }
                 }
@@ -211,7 +217,7 @@ extension SettingsView {
             SettingsTextSectionView(title: "Prayer Times", sublines: [], fixedSublinesSize: false)
             ScrollView(.horizontal) {
                 HStack(spacing: 20) {
-                    ForEach(settingsViewModel.periods, id: \.self) { period in
+                    ForEach(Constants.periods, id: \.self) { period in
                         Text("\(period) : \(settingsViewModel.prayerTimes[period] ?? "")")
                     }
                 }

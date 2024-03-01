@@ -10,14 +10,19 @@ import CoreLocation
 
 class SettingsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var wifiOn: Bool = true
-    let periods: [String] = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha", "Midnight"]
-    @Published var prayerTimes: [String : String] = ["Fajr" : "", "Sunrise" : "", "Dhuhr" : "", "Asr" : "", "Maghrib" : "", "Isha" : "", "Midnight" : ""]
+    @Published var prayerTimes: [String : String] = ["Fajr" : "", "Sunrise" : "", "Dhuhr" : "", "Asr" : "", "Maghrib" : "", "Isha" : "", "Midnight" : ""] {
+        didSet {
+            prayersDataManager.savePrayerTimesToUD(with: prayerTimes)
+        }
+    }
+    let sampleTimes: [String: String] = ["Fajr" : "04:30", "Sunrise" : "05:45", "Dhuhr" : "12:00", "Asr" : "16:55", "Maghrib" : "20:15", "Isha" : "22:05", "Midnight" : "00:45"]
     // Wifi Settings
-    let locationManager = CLLocationManager()
     let prayersDataManager = PrayersDataManager()
-    @Published var country: String = ""
-    @Published var city: String = ""
-    var location : CLLocation? = nil
+    let locationManager = CLLocationManager()
+    @AppStorage("latitude") var latitude: Double = .infinity
+    @AppStorage("longitude") var longitude: Double = .infinity
+    @AppStorage("country") var country: String = ""
+    @AppStorage("city") var city: String = ""
     let methods: [String] = [
         "Shia Ithna-Ashari",
         "University of Islamic Sciences, Karachi",
@@ -42,12 +47,28 @@ class SettingsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var period: String = "Fajr"
     @Published var hour: String = "04"
     @Published var minutes: String = "30"
-    let sampleTimes: [String: String] = ["Fajr" : "04:30", "Sunrise" : "05:45", "Dhuhr" : "12:00", "Asr" : "16:55", "Maghrib" : "20:15", "Isha" : "22:05", "Midnight" : "00:45"]
+    
+    func prayerTimesAreComplete() -> Bool {
+        var i = 0
+        while i < Constants.periodsCount && !(prayerTimes[Constants.periods[i]] ?? "").isEmpty {
+            i += 1
+        }
+        return i >= Constants.periodsCount
+    }
+    
+    func showUnableToExitAlert() {
+        alertTitle = Constants.Errors.UnableToExitAlert.title
+        alertMessage = Constants.Errors.UnableToExitAlert.message
+        showAlert = true
+    }
     
     // Wifi
     override init() {
         super.init()
         locationManager.delegate = self
+        if let times = prayersDataManager.loadPrayerTimesFromUD() {
+            prayerTimes = times
+        }
     }
     
     func showAPIAlert(_ error: Error) {
@@ -95,13 +116,13 @@ class SettingsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.requestLocation()
     }
     
-    func fetchGeoNames (with location: CLLocation) async -> Result<(String, String), Error> {
+    func fetchGeoNames (with location: CLLocation) async -> Result<GeoNamesModel, Error> {
         let geoCoder = CLGeocoder()
         do {
             let placemarks = try await geoCoder.reverseGeocodeLocation(location)
             if let placemark = placemarks.first,
                let country = placemark.country {
-                return .success((placemark.locality ?? "", country))
+                return .success(GeoNamesModel(city: placemark.locality ?? "", country: country))
             } else {
                 return .failure(Constants.Errors.GeoLocation.failedGeoReverse(coordinate: location.coordinate))
             }
@@ -110,9 +131,9 @@ class SettingsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
-    func fetchPrayerTimes(with coordinate: CLLocationCoordinate2D) async -> Result<[String : String], Error> {
+    func fetchPrayerTimes(latitude: Double, longitude: Double) async -> Result<[String : String], Error> {
         do {
-            return .success(try await prayersDataManager.downloadPrayerTimes(with: coordinate.latitude, coordinate.longitude, method))
+            return .success(try await prayersDataManager.downloadPrayerTimes(latitude: latitude, longitude: longitude, method: method))
         } catch {
             return .failure(error)
         }
@@ -121,8 +142,8 @@ class SettingsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     func updatePrayerTimes() {
         isLoading = true
         Task {
-            if let location {
-                let fetchTimings = await fetchPrayerTimes(with: location.coordinate)
+            if latitude != .infinity && longitude != .infinity {
+                let fetchTimings = await fetchPrayerTimes(latitude: latitude, longitude: longitude)
                 await MainActor.run {
                     switch fetchTimings {
                     case .success(let timings):
@@ -141,28 +162,27 @@ class SettingsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         Task {
             if let location = locations.last {
+                let coordinate = location.coordinate
                 async let fetchNames = fetchGeoNames(with: location)
-                async let fetchTimings = fetchPrayerTimes(with: location.coordinate)
+                async let fetchTimings = fetchPrayerTimes(latitude: coordinate.latitude, longitude: coordinate.longitude)
                 let returnedValues = await (fetchNames, fetchTimings)
                 
                 await MainActor.run {
+                    latitude = coordinate.latitude
+                    longitude = coordinate.longitude
                     switch returnedValues {
-                    case (.success(let (city, country)), .success(let timings)):
+                    case (.success(let geoNames), .success(let timings)):
                         prayerTimes = timings
-                        self.country = country
-                        self.city = city
-                        self.location = location
-                    case (.success(let (city, country)), .failure(let error)):
-                        self.country = country
-                        self.city = city
-                        self.location = location
+                        country = geoNames.country
+                        city = geoNames.city
+                    case (.success(let geoNames), .failure(let error)):
+                        country = geoNames.country
+                        city = geoNames.city
                         showAPIAlert(error)
                     case (.failure(let error), .success(let timings)):
                         prayerTimes = timings
-                        self.location = location
                         showGeoAlert(error)
                     case (.failure(let namesError), .failure(let timingsError)):
-                        self.location = location
                         showCombinedAlert(geoError: namesError, apiError: timingsError)
                     }
                 }
@@ -175,7 +195,6 @@ class SettingsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         isLoading = false
-        //show alert Location Failed
         print("location did not take place : \(error.localizedDescription)")
     }
     

@@ -18,7 +18,7 @@ struct ButtonView: View {
                 .shadow(color: .black.opacity(0.15), radius: 10, x: 0, y: 0)
             Circle()
                 .fill(.black.opacity(0.16))
-                .padding(6)
+                .padding(5)
             Image(systemName: imageName)
                 .foregroundStyle(.colorBrown)
                 .fontWeight(.bold)

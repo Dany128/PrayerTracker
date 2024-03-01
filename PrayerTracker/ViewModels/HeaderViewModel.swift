@@ -9,7 +9,6 @@ import SwiftUI
 
 class HeaderViewModel: ObservableObject {
     // Timer
-    var prayerSettingsChanged: Bool = false
     let prayersDataManager: PrayersDataManager = PrayersDataManager()
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var dateFormatter: DateFormatter {
@@ -17,8 +16,7 @@ class HeaderViewModel: ObservableObject {
         formatter.dateFormat = "HH:mm"
         return formatter
     }
-    var prayerTimes: [String] = []
-    var periodsCount: Int = 7
+    var prayerTimes: [String : String] = [:]
     var newDay: Bool = false
     var hasReset: Bool = false
     var comingPeriodDate: Date = Date()
@@ -36,59 +34,54 @@ class HeaderViewModel: ObservableObject {
     @Published var toggleIsVisible: Bool = false
     var inPrayerTime: Bool = false
     @AppStorage("hasPrayed") var hasPrayed: Bool = false
+    @AppStorage("showSettings") var showSettings: Bool = true
     
-    func checkForTimingsUpdate() async {
-        if prayerTimes == [] {
-//            do {
-//                let timings = try await prayersDataManager.downloadPrayerTimes()
-//                try await MainActor.run {
-//                    prayerTimes = try prayersDataManager.generatePrayerTimes(with: timings)
-//                    print(prayerTimes)
-//                    setTimer()
-//                }
-//            } catch {
-//                print(error.localizedDescription)
-//            }
+    func loadPrayerTimes() {
+        if let timings = prayersDataManager.loadPrayerTimesFromUD() {
+            prayerTimes = timings
+            setTimer()
+        } else {
+            showSettings = true
         }
     }
     
     func setTimer() {
-        guard prayerTimes != [] else { return }
-        
         var i = 0
-        while i <= periodsCount && !isInTimeInterval(from: i, to: (i + 1) % periodsCount){
+        while i < Constants.periodsCount && !isInTimeInterval(from: i, to: (i + 1) % Constants.periodsCount) {
             i += 1
         }
-        updateComingPeriodDate(index: (i + 1) % periodsCount)
-        previousPeriodIndex = i % periodsCount
+        updateComingPeriodDate(index: (i + 1) % Constants.periodsCount)
+        previousPeriodIndex = i % Constants.periodsCount
         setImages()
         updateToggleVisibility()
     }
     
     func resetTimer() {
-        previousPeriodIndex = (previousPeriodIndex + 1) % periodsCount
+        previousPeriodIndex = (previousPeriodIndex + 1) % Constants.periodsCount
         hasReset = true
-        let beginningTime = prayerTimes[previousPeriodIndex]
-        let endTime = prayerTimes[(previousPeriodIndex + 1) % periodsCount]
-        if beginningTime > endTime {
-            newDay = true
-        } else {
-            newDay = false
+        if 
+            let beginningTime = prayerTimes[Constants.periods[previousPeriodIndex]],
+            let endTime = prayerTimes[Constants.periods[(previousPeriodIndex + 1) % Constants.periodsCount]] {
+            if beginningTime > endTime {
+                newDay = true
+            } else {
+                newDay = false
+            }
+            updateComingPeriodDate(index: (previousPeriodIndex + 1) % Constants.periodsCount)
         }
-        updateComingPeriodDate(index: (previousPeriodIndex + 1) % periodsCount)
+        
     }
     
     func addPadding(to component: Int) -> String {
         return component < 10 ? "0\(component)" : "\(component)"
     }
     
-    func updateTimeRemaining() {
-        // guard has ever fetched prayer times
-        guard prayerTimes != [] else { return }
-        if prayerSettingsChanged {
-            setTimer()
-            prayerSettingsChanged = false
+    func updateTimeRemaining(while settingsHaveChanged: inout Bool) {
+        if settingsHaveChanged {
+            loadPrayerTimes()
+            settingsHaveChanged = false
         }
+        guard !showSettings else { return }
         let datesDifference = Calendar.current.dateComponents([.hour, .minute, .second], from: Date(), to: comingPeriodDate)
         if hasReset {
             hasPrayed = false
@@ -113,10 +106,10 @@ class HeaderViewModel: ObservableObject {
     }
     
     func updateComingPeriodDate(index: Int) {
-        let timeAtIndex = prayerTimes[index]
+        guard let timeAtPeriodFromIndex = prayerTimes[Constants.periods[index]] else { return }
         let calendar = Calendar.current
         var dateComponents = DateComponents()
-        let timeFromPeriodComponents = timeAtIndex.components(separatedBy: ":")
+        let timeFromPeriodComponents = timeAtPeriodFromIndex.components(separatedBy: ":")
         if timeFromPeriodComponents.count > 1 {
             let currentDayComponents = calendar.dateComponents([.day, .month, .year], from: Date())
             dateComponents.year = currentDayComponents.year
@@ -135,20 +128,22 @@ class HeaderViewModel: ObservableObject {
     
     func isInTimeInterval(from: Int, to: Int) -> Bool {
         let currentTime = dateFormatter.string(from: Date())
-        let beginningTime = prayerTimes[from]
-        let endTime = prayerTimes[to]
-        
-        if beginningTime < endTime {
-            if currentTime >= beginningTime && currentTime < endTime {
-                newDay = false
-                return true
-            }
-        } else {
-            if !(currentTime >= endTime && currentTime < beginningTime) {
-                newDay = true
-                return true
+        if
+            let beginningTime = prayerTimes[Constants.periods[from]],
+            let endTime = prayerTimes[Constants.periods[to]] {
+            if beginningTime < endTime {
+                if currentTime >= beginningTime && currentTime < endTime {
+                    newDay = false
+                    return true
+                }
+            } else {
+                if !(currentTime >= endTime && currentTime < beginningTime) {
+                    newDay = true
+                    return true
+                }
             }
         }
+        
         return false
     }
 
@@ -159,9 +154,13 @@ class HeaderViewModel: ObservableObject {
     }
     
     func updateBarWidth() {
+        guard
+            let previousTime = prayerTimes[Constants.periods[previousPeriodIndex]],
+            let comingTime = prayerTimes[Constants.periods[(previousPeriodIndex + 1) % Constants.periodsCount]]
+        else { return }
         let timeRemainingComponents = timeRemaining.components(separatedBy: ":")
-        let previousPeriodComponents = prayerTimes[previousPeriodIndex].components(separatedBy: ":")
-        let comingPeriodComponents = prayerTimes[(previousPeriodIndex + 1) % periodsCount].components(separatedBy: ":")
+        let previousPeriodComponents = previousTime.components(separatedBy: ":")
+        let comingPeriodComponents = comingTime.components(separatedBy: ":")
         if
             timeRemainingComponents.count > 2 && previousPeriodComponents.count > 1 && comingPeriodComponents.count > 1 {
             let remainingSeconds = (
@@ -190,7 +189,7 @@ class HeaderViewModel: ObservableObject {
     func setImages() {
         withAnimation(.easeInOut(duration: 1)) {
             previousPeriodImage = periodsImages[previousPeriodIndex]
-            comingPeriodImage = periodsImages[(previousPeriodIndex + 1) % periodsCount]
+            comingPeriodImage = periodsImages[(previousPeriodIndex + 1) % Constants.periodsCount]
         }
     }
     

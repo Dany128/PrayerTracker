@@ -12,17 +12,21 @@ struct ContentView: View {
     
     // MARK: - PROPERTIES
     
-    @State var showSettings: Bool = false
+    @AppStorage("showSettings") var showSettings: Bool = true
+    @State var settingsHaveChanged = false
     
     // MARK: - BODY
     var body: some View {
         ZStack {
             ScrollView {
-                HeaderView()
+                HeaderView(settingsHaveChanged: $settingsHaveChanged)
 
                 dividier
             } //: SCROLL
         } //: ZSTACK
+        .fullScreenCover(isPresented: $showSettings) {
+            SettingsView(showSettings: $showSettings, settingsHaveChanged: $settingsHaveChanged)
+        }
     }
 }
 
@@ -45,9 +49,17 @@ extension ContentView {
             
             Spacer()
             
-            ButtonView(imageName: "gear")
-                .padding()
+            Button(action: {
+                showSettings = true
+            }, label: {
+                ButtonView(imageName: "gear")
+                    .padding()
+            })
+            
         }
-        .background(Rectangle().foregroundStyle(.color1).shadow(color: .black.opacity(0.15), radius: 20, x: 0, y: 15))
+        .background(Rectangle()
+            .foregroundStyle(.color1)
+            .shadow(color: .black.opacity(0.15), radius: 20, x: 0, y: 15)
+        )
     }
 }
