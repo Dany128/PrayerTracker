@@ -19,9 +19,11 @@ class HeaderViewModel: ObservableObject {
     var prayerTimes: [String : String] = [:]
     var newDay: Bool = false
     var hasReset: Bool = false
+    var settingsHaveChanged: Bool = false
     var comingPeriodDate: Date = Date()
     var previousPeriodIndex: Int = 0
     @Published var timeRemaining: String = "00:00:00"
+    @AppStorage("showSettings") var showSettings: Bool = true
     // Progression Bar
     let periodsImages: [String] = ["moon", "sunrise", "sun.max", "sun.max.fill", "sunset.fill", "moon", "moon.stars"]
     @Published var previousPeriodImage: String = "moon"
@@ -29,12 +31,13 @@ class HeaderViewModel: ObservableObject {
     @Published var barWidthScale: CGFloat = 0.0
     // Toggle
     @Published var buttonOffset: CGFloat = 0
+    var toggleMoving: Bool = false
+    var toggleHintTimer: Int = 0
     let toggleDiamater: CGFloat = 70
     @Published var hasTurnedRight: Bool = false
     @Published var toggleIsVisible: Bool = false
     var inPrayerTime: Bool = false
     @AppStorage("hasPrayed") var hasPrayed: Bool = false
-    @AppStorage("showSettings") var showSettings: Bool = true
     
     func loadPrayerTimes() {
         if let timings = prayersDataManager.loadPrayerTimesFromUD() {
@@ -76,7 +79,7 @@ class HeaderViewModel: ObservableObject {
         return component < 10 ? "0\(component)" : "\(component)"
     }
     
-    func updateTimeRemaining(while settingsHaveChanged: inout Bool) {
+    func updateTimeRemaining() {
         if settingsHaveChanged {
             loadPrayerTimes()
             settingsHaveChanged = false
@@ -97,10 +100,9 @@ class HeaderViewModel: ObservableObject {
             if hours <= 0 && minutes <= 0 && seconds <= 0 {
                 resetTimer()
             }
-            withAnimation(.easeOut(duration: 0.15)) {
+            withAnimation(.easeOut(duration: 0.10)) {
                 timeRemaining = addPadding(to: hours) + ":" + addPadding(to: minutes) + ":" + addPadding(to: seconds)
             }
-            
         }
         updateBarWidth()
     }
@@ -195,9 +197,29 @@ class HeaderViewModel: ObservableObject {
     
     // MARK: - TOGGLE
     
+    func hintToToggle() {
+        if hasTurnedRight && !toggleMoving {
+            toggleHintTimer += 1
+            switch toggleHintTimer % 4 {
+            case 0 where toggleHintTimer > 0:
+                withAnimation(.easeOut(duration: 0.1)) {
+                    buttonOffset -= 30
+                }
+                withAnimation(.easeOut(duration: 0.5)) {
+                    buttonOffset += 30
+                }
+            default:
+                break
+            }
+        } else {
+            toggleHintTimer = 0
+        }
+    }
+    
     func updateToggleOnChanged(with gesture: DragGesture.Value, capsuleWidth: CGFloat) {
         let horizontalTranslation = gesture.translation.width
         let maximumTranslation = capsuleWidth
+        toggleMoving = true
         if hasTurnedRight {
             if horizontalTranslation < 0 && buttonOffset >= 0  {
                 buttonOffset = maximumTranslation - toggleDiamater + horizontalTranslation
@@ -219,6 +241,7 @@ class HeaderViewModel: ObservableObject {
             } else {
                 buttonOffset = capsuleWidth - toggleDiamater
             }
+            toggleHintTimer = -5
         } else {
             if buttonOffset > capsuleWidth - toggleDiamater - 10 {
                 buttonOffset = capsuleWidth - toggleDiamater
@@ -227,6 +250,7 @@ class HeaderViewModel: ObservableObject {
                 buttonOffset = 0
             }
         }
+        toggleMoving = false
     }
     
     func updateInPrayerTime() {

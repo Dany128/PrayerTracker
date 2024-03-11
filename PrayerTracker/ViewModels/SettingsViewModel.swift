@@ -56,13 +56,32 @@ class SettingsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         return i >= Constants.periodsCount
     }
     
-    func showUnableToExitAlert() {
-        alertTitle = Constants.Errors.UnableToExitAlert.title
-        alertMessage = Constants.Errors.UnableToExitAlert.message
-        showAlert = true
+    func prayerTimesAreWithinADay() -> Bool {
+        var newDays = 0
+        for i in 0..<Constants.periodsCount {
+            if let firstTime = prayerTimes[Constants.periods[i]],
+               let secondTime = prayerTimes[Constants.periods[(i + 1) % Constants.periodsCount]],
+               firstTime > secondTime {
+                newDays += 1
+            }
+        }
+        return newDays < 2
     }
     
-    // Wifi
+    func checkPrayerTimesValidity() -> Bool {
+        guard prayerTimesAreComplete() else {
+            showAlert(Constants.Errors.UnableToExit.incompletePrayerTimes)
+            return false
+        }
+        guard prayerTimesAreWithinADay() else {
+            showAlert(Constants.Errors.UnableToExit.prayerTimesNotInADay)
+            return false
+        }
+        return true
+    }
+    
+    // MARK: - WIFI
+    
     override init() {
         super.init()
         locationManager.delegate = self
@@ -71,21 +90,10 @@ class SettingsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
-    func showAPIAlert(_ error: Error) {
-        if let apiError = error as? Constants.Errors.API {
-            alertTitle = apiError.errorTitle
-            alertMessage = apiError.errorDescription
-        } else {
-            alertTitle = "Error"
-            alertMessage = error.localizedDescription
-        }
-        showAlert = true
-    }
-    
-    func showGeoAlert(_ error: Error) {
-        if let geoError = error as? Constants.Errors.GeoLocation {
-            alertTitle = geoError.errorTitle
-            alertMessage = geoError.errorDescription
+    func showAlert(_ error: Error) {
+        if let error = error as? AlertError {
+            alertTitle = error.errorTitle
+            alertMessage = error.errorDescription
         } else {
             alertTitle = "Error"
             alertMessage = error.localizedDescription
@@ -107,7 +115,6 @@ class SettingsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         } else {
             alertMessage += geoError.localizedDescription
         }
-        
         showAlert = true
     }
     
@@ -149,7 +156,7 @@ class SettingsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                     case .success(let timings):
                         prayerTimes = timings
                     case .failure(let error):
-                        showAPIAlert(error)
+                        showAlert(error)
                     }
                 }
             }
@@ -178,10 +185,10 @@ class SettingsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                     case (.success(let geoNames), .failure(let error)):
                         country = geoNames.country
                         city = geoNames.city
-                        showAPIAlert(error)
+                        showAlert(error)
                     case (.failure(let error), .success(let timings)):
                         prayerTimes = timings
-                        showGeoAlert(error)
+                        showAlert(error)
                     case (.failure(let namesError), .failure(let timingsError)):
                         showCombinedAlert(geoError: namesError, apiError: timingsError)
                     }
@@ -198,7 +205,8 @@ class SettingsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         print("location did not take place : \(error.localizedDescription)")
     }
     
-    // Manual
+    // MARK: - MANUAL
+    
     func loadPickers() {
         var time = sampleTimes[period] ?? "00:00"
         if let existingTime = prayerTimes[period], !existingTime.isEmpty {

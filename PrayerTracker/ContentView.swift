@@ -9,23 +9,19 @@ import SwiftUI
 
 
 struct ContentView: View {
+    @StateObject var headerViewModel: HeaderViewModel = HeaderViewModel()
     
-    // MARK: - PROPERTIES
-    
-    @AppStorage("showSettings") var showSettings: Bool = true
-    @State var settingsHaveChanged = false
-    
-    // MARK: - BODY
     var body: some View {
         ZStack {
             ScrollView {
-                HeaderView(settingsHaveChanged: $settingsHaveChanged)
+                HeaderView(headerViewModel: headerViewModel)
 
                 dividier
+                    .animation(.spring, value: headerViewModel.toggleIsVisible)
             } //: SCROLL
         } //: ZSTACK
-        .fullScreenCover(isPresented: $showSettings) {
-            SettingsView(showSettings: $showSettings, settingsHaveChanged: $settingsHaveChanged)
+        .fullScreenCover(isPresented: $headerViewModel.showSettings) {
+            SettingsView(headerViewModel: headerViewModel)
         }
     }
 }
@@ -50,7 +46,7 @@ extension ContentView {
             Spacer()
             
             Button(action: {
-                showSettings = true
+                headerViewModel.showSettings = true
             }, label: {
                 ButtonView(imageName: "gear")
                     .padding()

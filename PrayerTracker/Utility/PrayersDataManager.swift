@@ -18,7 +18,6 @@ class PrayersDataManager {
     func downloadPrayerTimes(latitude: Double, longitude: Double, method: Int) async throws -> [String : String] {
         
         let urlString = "https://api.aladhan.com/v1/timings/\(dateFormatter.string(from: Date()))?latitude=\(latitude)&longitude=\(longitude)&method=\(method)"
-        
         guard let url = URL(string: urlString) else {
             throw Constants.Errors.API.invalidURL(urlString)
         }

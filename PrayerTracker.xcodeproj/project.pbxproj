@@ -23,6 +23,7 @@
 		8E9DE8192B80D2ED00E73E8C /* HeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE8182B80D2ED00E73E8C /* HeaderViewModel.swift */; };
 		8E9DE81B2B80D30E00E73E8C /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE81A2B80D30E00E73E8C /* HeaderView.swift */; };
 		8E9DE81D2B80D32500E73E8C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DE81C2B80D32500E73E8C /* SettingsView.swift */; };
+		8EA145842B9F272C00B0649F /* AlertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA145832B9F272C00B0649F /* AlertError.swift */; };
 		8EA4D4B22B90C777001E79CA /* GeoNamesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA4D4B12B90C777001E79CA /* GeoNamesModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		8E9DE8182B80D2ED00E73E8C /* HeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewModel.swift; sourceTree = "<group>"; };
 		8E9DE81A2B80D30E00E73E8C /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		8E9DE81C2B80D32500E73E8C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8EA145832B9F272C00B0649F /* AlertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertError.swift; sourceTree = "<group>"; };
 		8EA4D4B12B90C777001E79CA /* GeoNamesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoNamesModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,8 +125,9 @@
 		8E9DE8122B80D29900E73E8C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				8E9DE8132B80D2A700E73E8C /* Constants.swift */,
 				8E9DE8152B80D2BC00E73E8C /* PrayersDataManager.swift */,
+				8E9DE8132B80D2A700E73E8C /* Constants.swift */,
+				8EA145832B9F272C00B0649F /* AlertError.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				8E9DE8112B80D28600E73E8C /* PrayerTimesModel.swift in Sources */,
 				8E9DE8142B80D2A700E73E8C /* Constants.swift in Sources */,
 				8E9DE8192B80D2ED00E73E8C /* HeaderViewModel.swift in Sources */,
+				8EA145842B9F272C00B0649F /* AlertError.swift in Sources */,
 				8E9DE81D2B80D32500E73E8C /* SettingsView.swift in Sources */,
 				8E5BFF6E2B8BCEB7006F4451 /* SettingsViewModel.swift in Sources */,
 			);

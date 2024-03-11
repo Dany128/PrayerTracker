@@ -17,7 +17,7 @@ struct Constants {
     }
     
     struct Errors {
-        enum API: Error {
+        enum API: AlertError {
             case invalidURL(_ url: String)
             case invalidResponse(statusCode: Int)
             case invalidData
@@ -45,7 +45,7 @@ struct Constants {
             }
         }
         
-        enum GeoLocation: Error {
+        enum GeoLocation: AlertError {
             case failedGeoReverse(coordinate: CLLocationCoordinate2D)
             
             var errorTitle: String {
@@ -61,9 +61,27 @@ struct Constants {
             }
         }
         
-        struct UnableToExitAlert {
-            static let title = "Incomplete Prayer Times"
-            static let message = "Please compute the prayer times or fill them manually"
+        enum UnableToExit: AlertError {
+            case incompletePrayerTimes
+            case prayerTimesNotInADay
+            
+            var errorTitle: String {
+                switch self {
+                case .incompletePrayerTimes:
+                    return "Incomplete Prayer Times"
+                case .prayerTimesNotInADay:
+                    return "Longer Than a Day"
+                }
+            }
+            
+            var errorDescription: String {
+                switch self {
+                case .incompletePrayerTimes:
+                    return "Please compute the prayer times or fill them manually"
+                case .prayerTimesNotInADay:
+                    return "the prayer times cover more than a day"
+                }
+            }
         }
     }
 }

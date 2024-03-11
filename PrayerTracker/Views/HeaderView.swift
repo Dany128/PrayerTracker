@@ -9,8 +9,7 @@ import SwiftUI
 
 struct HeaderView: View {
     // MARK: - PROPERTIES
-    @StateObject var headerViewModel: HeaderViewModel = HeaderViewModel()
-    @Binding var settingsHaveChanged: Bool
+    @ObservedObject var headerViewModel: HeaderViewModel
     
     // Progression Bar
     
@@ -40,7 +39,8 @@ struct HeaderView: View {
                 }
             } //: VSTACK
             .onReceive(headerViewModel.timer, perform: { _ in
-                headerViewModel.updateTimeRemaining(while: &settingsHaveChanged)
+                headerViewModel.updateTimeRemaining()
+                headerViewModel.hintToToggle()
             })
         } //: GROUPBOX
         .onAppear {
@@ -56,12 +56,11 @@ struct HeaderView: View {
 
 #Preview {
     ScrollView {
-        HeaderView(settingsHaveChanged: .constant(false))
+        HeaderView(headerViewModel: HeaderViewModel())
     }
 }
 
 extension HeaderView {
-    
     var progressionBar: some View {
         HStack(spacing: 15) {
             Image(systemName: headerViewModel.previousPeriodImage)
@@ -126,13 +125,14 @@ extension HeaderView {
                     if !headerViewModel.hasTurnedRight {
                         Spacer()
                     }
-                    
                 }
                 
                 // 3. CIRCLE (DRAGGABLE)
                 
                 HStack {
                     ZStack {
+                        Circle()
+                            .fill(.colorYellow)
                         Circle()
                             .fill(.black.opacity(0.16))
                             .padding(8)

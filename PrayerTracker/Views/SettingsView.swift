@@ -12,8 +12,7 @@ import CoreLocationUI
 struct SettingsView: View {
     
     @StateObject var settingsViewModel = SettingsViewModel()
-    @Binding var showSettings: Bool
-    @Binding var settingsHaveChanged: Bool
+    @ObservedObject var headerViewModel: HeaderViewModel
     
     var body: some View {
         ZStack {
@@ -52,11 +51,9 @@ struct SettingsView: View {
                 .navigationTitle("Prayer Times")
                 .toolbar {
                     Button {
-                        if settingsViewModel.prayerTimesAreComplete() {
-                            settingsHaveChanged = true
-                            showSettings = false
-                        } else {
-                            settingsViewModel.showUnableToExitAlert()
+                        if settingsViewModel.checkPrayerTimesValidity() {
+                            headerViewModel.settingsHaveChanged = true
+                            headerViewModel.showSettings = false
                         }
                     } label: {
                         Image(systemName: "xmark")
@@ -83,7 +80,7 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView(showSettings: .constant(true), settingsHaveChanged: .constant(false))
+    SettingsView(headerViewModel: HeaderViewModel())
 }
 
 extension SettingsView {
